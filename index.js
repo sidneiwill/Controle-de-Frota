@@ -1,10 +1,10 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, getDoc, setDoc, doc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, getDoc, doc } from "firebase/firestore";
 
 import dotenv from "dotenv";
 dotenv.config();
 
-import { addVehicle, updateVehicle, deleteVehicle } from "./functions/manageVehicles.js";
+import { updateVehicle, deleteVehicle } from "./functions/manageVehicles.js";
 
 const firebaseConfig = {
     apiKey: process.env.API_KEY,
@@ -40,10 +40,9 @@ async function listDocuments() {
     }
 }
 
-// search for a specific document inside a collection
 async function searchDocument(collection, documentId) {
     try {
-        const docRef = doc(db, collection, documentId); // Use doc to create a document reference
+        const docRef = doc(db, collection, documentId); 
         const docSnapshot = await getDoc(docRef);
         if (docSnapshot.exists()) {
             console.log(`Document found: ${JSON.stringify(docSnapshot.data())}`);
@@ -56,10 +55,10 @@ async function searchDocument(collection, documentId) {
     }
 }
 
-searchDocument("veiculos", "IHO-4243").then((res) => console.log(res)); // Replace with the actual document ID you want to search
+searchDocument("veiculos", "IHO-4243").then((res) => console.log(res)); 
 
 updateVehicle(db, "IHO-4243", newVehicle).then(() => console.log("Update completed"));
 
-searchDocument("veiculos", "IHO-4243").then((res) => console.log(res)); // Replace with the actual document ID you want to search
+searchDocument("veiculos", "IHO-4243").then((res) => console.log(res)); 
 
 deleteVehicle(db, "IPE-5358");

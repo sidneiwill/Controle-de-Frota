@@ -29,4 +29,15 @@ async function deleteVehicle(db, documentId) {
     console.error("Erro ao deletar o veículo do banco de dados: ", error);
   }
 }
-export { addVehicle, updateVehicle, deleteVehicle };
+
+async function listVehicles(db) {
+  try {
+    const querySnapshot = await getDocs(collection(db, "veiculos"));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${JSON.stringify(doc.data())}`);
+    });
+  } catch (error) {
+    console.error("Erro ao listar veículos: ", error);
+  }
+}
+export { addVehicle, updateVehicle, deleteVehicle, listVehicles };
